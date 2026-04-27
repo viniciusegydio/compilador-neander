@@ -29,7 +29,7 @@ ParsedLine parseLine(){
         line.hasOperand = 1;
     }
 
-    while(t.tipo != TOKEN_EOL && t.tipo != TOKEN_EOF) //Garante que vai até o token de fim de linha ou fim de arquivo, caso exista lixo
+    while(t.tipo != TOKEN_EOL && t.tipo != TOKEN_EOF) //Garante que vá até o token de fim de linha ou fim de arquivo, caso exista lixo
         t = obterProxToken();
 
     return line;
