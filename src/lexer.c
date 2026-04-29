@@ -16,7 +16,7 @@ const char *directives[] = {
 
 int checkMnemonic(const char *str){
     for(int i = 0; mnemonics[i]; i++){ //Continua o loop enquanto não chegar no NULL do array
-        if(strcmp(str, mnemonics[i] == 0))
+        if(strcmp(str, mnemonics[i]) == 0)
             return 1;
     }
     return 0;

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -37,7 +38,7 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
                 fprintf(f,"LDA %s\nADD %s\nSTA %s\n",op1, op2, var);
             }
             else if(op == '-'){ //Subtração negando e somando 1 
-                fprintf(f, "LDA %s\nNOT\nAdd ONE\nSTA TEMP\n"
+                fprintf(f, "LDA %s\nNOT\nADD ONE\nSTA TEMP\n"
                 "LDA %s\nADD TEMP\nSTA %s\n",
                 op2, op1, var);
             }
@@ -50,7 +51,7 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
         line = strtok(NULL, "\n");
     }
 
-    fprintf(f, "\n");
+    fprintf(f, "HLT\n\n");
     for(int i = 0; i<vcount; i++)
         fprintf(f,"%s: DATA %d\n",vars[i].name,vars[i].value);
 

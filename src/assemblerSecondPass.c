@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include "../include/parser.h"
 
-extern getSymbolAddress(const char*);
+extern int getSymbolAddress(const char*);
 extern unsigned char getOpcode(const char*);
 
 unsigned char memory[256]; //Memória do neander

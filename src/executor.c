@@ -26,6 +26,6 @@ void runProgram(){
             case 0xF0: run = 0; break; //HLT
         }
         flags();
-        printf("PC:%02X AC:%02X\N", PC, AC); //"%02X": hexadecimal
+        printf("PC:%02X AC:%02X\n", PC, AC); //"%02X": hexadecimal
     }
 }
