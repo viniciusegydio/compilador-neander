@@ -18,6 +18,6 @@ unsigned char getOpcode(const char *m){
         if(strcmp(table[i].mnemonic, m) == 0)
             return table[i].opcode;
     }
-    printf("O opcode e inválido\n");
+    printf("O opcode e invalido\n");
     exit(1);
 }
