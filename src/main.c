@@ -7,15 +7,20 @@
 #include "../include/assemblerSecondPass.h"
 #include "../include/executor.h"
 
-void generateFrompseudo(const char*);
-void firstpass();
+void firstPass();
 void secondPass();
 void runProgram();
-void initlexer(const char*);
+
 extern unsigned char memory[256];
 
 char* readFile(const char* f){
     FILE *fp= fopen(f,"r");
+
+    if(!fp){
+        printf("Erro ao abrir arquivo\n");
+        exit(1);
+    }
+
     fseek(fp,0,SEEK_END);
     int sz= ftell(fp);
     rewind(fp);
@@ -43,6 +48,10 @@ int main(){
 
     initLexer(code);
     secondPass();
+
+    for(int i = 0; i < 10; i++){
+        printf("mem[%d] = %02X\n", i, memory[i]);
+    }
 
     runProgram();
 

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include "../include/parser.h"
@@ -22,7 +23,8 @@ void secondPass(){
 
     while(1){
         l = parseLine();
-
+        printf("opcode: '%s' label: '%s' operand: '%s'\n", 
+        l.opcode, l.label, l.operand);
         if(l.opcode[0] == '\0' && l.label[0] == '\0')
             break;
         
@@ -30,7 +32,7 @@ void secondPass(){
             addr = atoi(l.operand);
         
         else if(!strcmp(l.opcode, "DATA"))
-            memory[addr++] == atoi(l.operand); //Reserva um byte 
+            memory[addr++] = atoi(l.operand); //Reserva um byte 
 
         else if(!strcmp(l.opcode, "SPACE"))
             addr+= atoi(l.operand);

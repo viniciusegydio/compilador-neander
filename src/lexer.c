@@ -52,7 +52,7 @@ Token readWord(){
     char buffer[64];
     int i = 0;
 
-    while(isalnum(src[pos]) || src[pos == '_']) //Verifica se é alfanumérico ou underscore
+    while(isalnum(src[pos]) || src[pos] == '_') //Verifica se é alfanumérico ou underscore
         buffer[i++] = src[pos++]; //Copia de src para o buffer e avança uma posição
 
     buffer[i] = '\0'; //Fim da string
@@ -88,10 +88,10 @@ Token obterProxToken(){
     if(src[pos] == '\0')
         return createToken(TOKEN_EOF, "EOF");
 
-    if(src[pos] == '\n')
+    if(src[pos] == '\n'){
         pos++;
         return createToken(TOKEN_EOL, "\\n"); //Utilizamos "\\" para não quebrar a linha
-
+    }
     if(isalpha(src[pos])) //Decide se é alfabetico ou numérico a partir do primeiro caractere
         return readWord();
 

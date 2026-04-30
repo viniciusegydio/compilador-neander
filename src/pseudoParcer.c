@@ -12,6 +12,16 @@ typedef struct{
 Var vars[20];
 int vcount = 0;
 
+void trim(char *s) {
+    char *p = s;
+
+    while(isspace(*p)) p++;
+    memmove(s, p, strlen(p) + 1);
+
+    for(int i = strlen(s) - 1; i >= 0 && isspace(s[i]); i--)
+        s[i] = '\0';
+}
+
 int find(char *n){
     for(int i = 0; i < vcount; i++){
         if(!strcmp(vars[i].name, n))
@@ -34,6 +44,10 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
         char var[20], op1[20], op2[20], op; 
 
         if(sscanf(line, "%[^=]=%s %c %s", var, op1, &op, op2) == 4){ //Divide a string nas 4 variáveis usando o "%[^=]=%s %c %s" como formato
+            trim(var);
+            trim(op1);
+            trim(op2);
+
             if(op == '+'){
                 fprintf(f,"LDA %s\nADD %s\nSTA %s\n",op1, op2, var);
             }
@@ -44,6 +58,9 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
             }
         } 
         else if(sscanf(line, "%[^=]=%s", var, op1) == 2){
+            trim(var);
+            trim(op1);
+            
             vars[vcount].init = 1;
             strcpy(vars[vcount].name, var);
             vars[vcount++].value = atoi(op1);
@@ -53,7 +70,7 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
 
     fprintf(f, "HLT\n\n");
     for(int i = 0; i<vcount; i++)
-        fprintf(f,"%s: DATA %d\n",vars[i].name,vars[i].value);
+        fprintf(f,"%s: DATA %d\n", vars[i].name, vars[i].value);
 
     fprintf(f,"ONE: DATA 1\nTEMP: SPACE 1\n");
     fclose(f);
