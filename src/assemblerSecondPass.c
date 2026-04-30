@@ -16,6 +16,25 @@ int resolve(const char *op){ //Transforma o operando(texto) em um valor numéric
     return getSymbolAddress(op); //Caso o operando seja um label
 }
 
+void generateMemFile(const char *filename){
+    FILE *f = fopen(filename, "w");
+
+    if(!f){
+        printf("Erro ao criar arquivo .mem\n");
+        exit(1);
+    }
+
+    for(int i = 0; i < 256; i++){
+        fprintf(f, "%02X", memory[i]);
+
+        if(i < 255)
+            fprintf(f, " ");
+    }
+
+    fprintf(f, "\n");
+    fclose(f);
+}
+
 void secondPass(){
     int addr = 0;
     ParsedLine l;
@@ -44,6 +63,7 @@ void secondPass(){
             if(isTwoByte(l.opcode)) //Se tiver 2 bytes, transforma o operando em um valor numérico
                 memory[addr++] = resolve(l.operand);
         }
+        generateMemFile("out.mem");
     }
 
 }
