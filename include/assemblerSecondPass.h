@@ -3,5 +3,6 @@
 
 int resolve(const char *op);
 void secondPass();
+void generateMemFile(const char *filename);
 
 #endif
