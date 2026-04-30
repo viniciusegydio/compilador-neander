@@ -7,6 +7,7 @@ typedef struct {
     char operand[50]; //Operando(pode não existir)
     int hasLabel; //Indica se existe um label na linha
     int hasOperand; //Indica se existe um operando
+    int isEOF; 
 }ParsedLine;
 
 ParsedLine parseLine();

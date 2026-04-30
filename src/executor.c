@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 extern unsigned char memory[256];
 
@@ -13,7 +14,13 @@ void flags(){
 void runProgram(){ 
     int run = 1;
 
+    for(int i = 0; i < 20; i++){
+        printf("%02X ", memory[i]);
+    }
+    printf("\n");
+
     while(run){ //Ciclo de execução da CPU(fetch -> decode -> execute)
+        printf("IR bruto: %02X\n", IR);
         IR = memory[PC++]; //Instrução atual(fetch)
 
         unsigned char opcode = IR & 0xF0;

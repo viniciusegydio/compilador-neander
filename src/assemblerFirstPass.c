@@ -1,5 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../include/parser.h"
 
 extern void addSymbol(const char *, int); //Evita erro de múltiplas definições
@@ -15,8 +17,11 @@ void firstPass(){
     while(1){
         l = parseLine();
 
-        if(l.opcode[0] == '\0' && l.label[0] == '\0') //Checa se é fim de linha ou fim de arquivo
+        if(l.isEOF)
             break;
+        
+        if(l.opcode[0] == '\0' && l.label[0] == '\0')
+            continue;
 
         if(l.hasLabel) //Adiciona a tabela de símbolos se tiver label
             addSymbol(l.label, addr);
@@ -28,7 +33,7 @@ void firstPass(){
             addr++; //Reserva um espaço de memória
 
         else if(!strcmp(l.opcode, "SPACE"))
-            addr+= atoi(l.operand); //Reserva vários espaços de memóri 
+            addr+= atoi(l.operand); //Reserva vários espaços de memóri a
         
         else if(l.opcode[0])
             addr += isTwoByte(l.opcode) ? 2 : 1; //Adiciona um ou dois bytes dependendo se tiver operando

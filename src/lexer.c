@@ -76,7 +76,7 @@ Token readNumber(){
     int i = 0;
 
     while(isdigit(src[pos]))
-        buffer[i++] = src[pos];
+        buffer[i++] = src[pos++];
 
     buffer[i] = '\0';
     return createToken(TOKEN_NUMBER, buffer);

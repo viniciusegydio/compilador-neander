@@ -12,13 +12,13 @@ int count = 0;
 
 void addSymbol(const char *label, int addr){
     for(int i = 0; i < count; i++){
-        if(strcmp(table[i].label, label) == 0){ //Verifica se o label já não foi inserido na tabela
-            printf("Essa label já existe na tabela");
-            exit(1); //Encerra o programa devido a duplicação de label
+        if(strcmp(table[i].label, label) == 0){
+            printf("Essa label ja existe na tabela");
+            exit(1);
         }
-        strcpy(table[count].label, label);
-        table[count++].address = addr; //Utiliza o índice count antes de incrementar;
     }
+    strcpy(table[count].label, label);
+    table[count++].address = addr;
 }
 
 int getSymbolAddress(const char *label){
@@ -26,6 +26,6 @@ int getSymbolAddress(const char *label){
         if(strcmp(table[i].label, label) == 0)
             return table[i].address;
     }
-    printf("Label não encontrado na tabela\n");
+    printf("Label nao encontrado na tabela\n");
     exit(1);
 }

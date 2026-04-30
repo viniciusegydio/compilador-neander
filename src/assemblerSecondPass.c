@@ -23,10 +23,12 @@ void secondPass(){
 
     while(1){
         l = parseLine();
-        printf("opcode: '%s' label: '%s' operand: '%s'\n", 
-        l.opcode, l.label, l.operand);
-        if(l.opcode[0] == '\0' && l.label[0] == '\0')
+
+        if(l.isEOF)
             break;
+        
+        if(l.opcode[0] == '\0' && l.label[0] == '\0')
+            continue;
         
         if(!strcmp(l.opcode, "ORG"))
             addr = atoi(l.operand);

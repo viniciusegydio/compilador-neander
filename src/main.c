@@ -33,27 +33,31 @@ char* readFile(const char* f){
 }
 
 int main(){
-
     const char *input =
         "A = 10\n"
         "B = 20\n"
         "R = A + B\n";
 
+    printf("1\n");
     generateFromPseudo(input);
+    printf("2\n");
 
     char *code=readFile("out.asm");
 
     initLexer(code);
+    printf("3\n");
+
     firstPass();
+    printf("4\n");
 
     initLexer(code);
+    printf("5\n");
+    
     secondPass();
-
-    for(int i = 0; i < 10; i++){
-        printf("mem[%d] = %02X\n", i, memory[i]);
-    }
-
+    printf("6\n");
+    
     runProgram();
+    printf("7\n");
 
     free(code);
 }
