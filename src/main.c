@@ -38,26 +38,20 @@ int main(){
         "B = 20\n"
         "R = A + B\n";
 
-    printf("1\n");
     generateFromPseudo(input);
-    printf("2\n");
-
+    
     char *code=readFile("out.asm");
 
     initLexer(code);
-    printf("3\n");
 
     firstPass();
-    printf("4\n");
 
     initLexer(code);
-    printf("5\n");
     
     secondPass();
-    printf("6\n");
     
     runProgram();
-    printf("7\n");
+    
 
     free(code);
 }
