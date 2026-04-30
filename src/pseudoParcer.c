@@ -30,7 +30,19 @@ int find(char *n){
     return -1;
 }
 
+void addVar(char *name, int value, int init){
+    if(find(name) != -1)
+        return;
+
+    strcpy(vars[vcount].name, name);
+    vars[vcount].value = value;
+    vars[vcount].init = init;
+    vcount++;
+}
+
 void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em assembly do Neander)
+    vcount = 0;
+
     FILE *f = fopen("out.asm", "w");
     fprintf(f, "ORG 0\n");
 
@@ -48,6 +60,8 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
             trim(op1);
             trim(op2);
 
+            addVar(var, 0, 0);
+
             if(op == '+'){
                 fprintf(f,"LDA %s\nADD %s\nSTA %s\n",op1, op2, var);
             }
@@ -61,16 +75,18 @@ void generateFromPseudo(const char *code){ //Transforma pseudo-linguagem em asse
             trim(var);
             trim(op1);
             
-            vars[vcount].init = 1;
-            strcpy(vars[vcount].name, var);
-            vars[vcount++].value = atoi(op1);
+            addVar(var, atoi(op1), 1);
         }
         line = strtok(NULL, "\n");
     }
 
     fprintf(f, "HLT\n\n");
-    for(int i = 0; i<vcount; i++)
-        fprintf(f,"%s: DATA %d\n", vars[i].name, vars[i].value);
+    for(int i = 0; i<vcount; i++){
+        if(vars[i].init)
+            fprintf(f,"%s: DATA %d\n", vars[i].name, vars[i].value);
+        else
+            fprintf(f,"%s: SPACE 1\n", vars[i].name);
+    }
 
     fprintf(f,"ONE: DATA 1\nTEMP: SPACE 1\n");
     fclose(f);

@@ -20,7 +20,6 @@ void runProgram(){
     printf("\n");
 
     while(run){ //Ciclo de execução da CPU(fetch -> decode -> execute)
-        printf("IR bruto: %02X\n", IR);
         IR = memory[PC++]; //Instrução atual(fetch)
 
         unsigned char opcode = IR & 0xF0;
